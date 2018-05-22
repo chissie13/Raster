@@ -35,6 +35,7 @@ def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to 
     anglex = 90 - angle                           #angle of line for calculations for the x value
     anglex_tot = 0
     has_gonex = False
+    add(x,y)
 
     for i in range(0, line_length):
         add(x, y)
@@ -68,5 +69,6 @@ rasterline(0, 10, 10, 0)
 rasterline(12, 0, 0, 12)
 rasterline(0, 0, 15, 0)
 rasterline(0, 0, 0, 15)
+rasterline(0,0,0,0)
 
 g.draw()
