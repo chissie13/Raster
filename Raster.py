@@ -33,7 +33,7 @@ def rasterline(x1 , y1, x2, y2):
         angle /= 45
         print("angle: ", angle)
         for i in range(0, lineLength):
-            #add(x, y)
+            add(x, y)
             x += 1
             angleTot    += angle
             if angleTot > 0.5 and hasGone == False:
@@ -43,7 +43,6 @@ def rasterline(x1 , y1, x2, y2):
                 angleTot -= 1
                 hasGone = False
             print("AngleTot: ", angleTot, "hasGone: ", hasGone)
-            add(x, y)
 
 rasterline(0, 0, 10, 3)
 g.draw()
