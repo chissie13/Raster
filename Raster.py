@@ -7,7 +7,6 @@ def add(x, y):                  #easier function to add a point
 g = Grid(20, 20)                # the grid dimensions (x,y)
 
 def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to go and calls add function accordingly
-    #x = min(x1, x2)
     if x1>x2:                   #checks to make sure x1 is on the left side of x2 and changes them if not true
         temp = x1
         x1 = x2
@@ -27,8 +26,10 @@ def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to 
         line_length = xtemp
     else:
         line_length = ytemp
-
-    angle = math.degrees((math.atan(ytemp/xtemp)))#calculates the angle of the line for y value
+    if x1 == x2:
+        angle = 90
+    else:
+        angle = math.degrees((math.atan(ytemp/xtemp)))#calculates the angle of the line for y value
     angle_tot = 0
     x = x1
     y = y1
@@ -65,5 +66,5 @@ def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to 
             angle_tot -= 1
             has_gone = False
 
-rasterline(0, 10, 10, 0)
+rasterline(0, 10, 0, 0)                            #testdata :)
 g.draw()
