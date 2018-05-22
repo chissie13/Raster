@@ -1,65 +1,62 @@
 from grid import *
 import math
 
-def add(x, y):
+def add(x, y):                  #easier function to add a point
     g.addPoint(x, y)
 
-g = Grid(20, 20)
-def rasterline(x1 , y1, x2, y2):
-    if x1>x2:
+g = Grid(20, 20)                # the grid dimensions (x,y)
+
+def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to go and calls add function accordingly
+    if x1>x2:                   #checks to make sure x1 is on the left side of x2 and changes them if not true
         temp = x1
         x1 = x2
         x2 = temp
         temp = y1
         y1 = y2
         y2 = temp
-    xtemp = x2-x1
+    xtemp = x2 - x1
 
-    if y1>y2:
+    if y1>y2:                   #checks to see if y1 is above or below y2
         ytemp = y1-y2
-        diry = "Down"
+        dir_y = "Down"
     else:
         ytemp = y2-y1
-        diry = "Up"
+        dir_y = "Up"
     if xtemp>ytemp:
-        lineLength = xtemp
+        line_length = xtemp
     else:
-        lineLength = ytemp
-    print("LineLength",lineLength)
+        line_length = ytemp
     angle = math.degrees((math.atan(ytemp/xtemp)))
-    angleTot = 0
-    bonus = 0
+    angle_tot = 0
     x = x1
     y = y1
-    hasGone = False
+    has_gone = False
     anglex = 90 - angle
-    anglexTot = 0
-    hasGonex = False
+    anglex_tot = 0
+    has_gonex = False
     angle /= 45
     anglex /= 45
-    print("angle: ", angle)
-    for i in range(0, lineLength):
+    for i in range(0, line_length):
         add(x, y)
         if angle <= 1:
             x += 1
         else:
-            anglexTot += anglex
-            if anglexTot > 0.5 and hasGonex == False:
+            anglex_tot += anglex
+            if anglex_tot > 0.5 and has_gonex == False:
                 x += 1
-                hasGonex = True
-            if anglexTot >= 1:
-                anglexTot -= 1
-                hasGonex = False
-        angleTot += angle
-        if angleTot > 0.5 and hasGone == False:
-            if diry == "Down":
+                has_gonex = True
+            if anglex_tot >= 1:
+                anglex_tot -= 1
+                has_gonex = False
+        angle_tot += angle
+        if angle_tot > 0.5 and has_gone == False:
+            if dir_y == "Down":
                 y -= 2
             y += 1
-            hasGone = True
-        if angleTot >= 1:
-            angleTot -= 1
-            hasGone = False
-        print("AnglexTot: ", anglexTot, "hasGonex: ", hasGonex)
+            has_gone = True
+        if angle_tot >= 1:
+            angle_tot -= 1
+            has_gone = False
 
 rasterline(0, 6, 10, 0)
 g.draw()
