@@ -7,6 +7,7 @@ def add(x, y):                  #easier function to add a point
 g = Grid(20, 20)                # the grid dimensions (x,y)
 
 def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to go and calls add function accordingly
+    #x = min(x1, x2)
     if x1>x2:                   #checks to make sure x1 is on the left side of x2 and changes them if not true
         temp = x1
         x1 = x2
@@ -21,42 +22,48 @@ def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to 
         dir_y = "Down"
     else:
         ytemp = y2-y1
-        dir_y = "Up"
-    if xtemp>ytemp:
+
+    if xtemp>ytemp:             #checks if x or y is bigger to determine the line length
         line_length = xtemp
     else:
         line_length = ytemp
-    angle = math.degrees((math.atan(ytemp/xtemp)))
+
+    angle = math.degrees((math.atan(ytemp/xtemp)))#calculates the angle of the line for y value
     angle_tot = 0
     x = x1
     y = y1
     has_gone = False
-    anglex = 90 - angle
+    anglex = 90 - angle                           #angle of line for calculations for the x value
     anglex_tot = 0
     has_gonex = False
-    angle /= 45
+    angle /= 45                                     #casts the degrees to a value between 0-1
     anglex /= 45
+
     for i in range(0, line_length):
         add(x, y)
-        if angle <= 1:
+
+        if angle <= 1:                            #checks if the degree is more or less than 45
             x += 1
         else:
-            anglex_tot += anglex
+            anglex_tot += anglex                    #adds to total to see how far the line is in correlation to the gridsquares
             if anglex_tot > 0.5 and has_gonex == False:
                 x += 1
                 has_gonex = True
             if anglex_tot >= 1:
                 anglex_tot -= 1
                 has_gonex = False
+
         angle_tot += angle
+
         if angle_tot > 0.5 and has_gone == False:
             if dir_y == "Down":
                 y -= 2
             y += 1
             has_gone = True
+
         if angle_tot >= 1:
             angle_tot -= 1
             has_gone = False
 
-rasterline(0, 6, 10, 0)
+rasterline(0, 10, 10, 0)
 g.draw()
