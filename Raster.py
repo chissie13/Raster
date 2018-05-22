@@ -4,7 +4,7 @@ import math
 def add(x, y):
     g.addPoint(x, y)
 
-g = Grid(20, 10)
+g = Grid(20, 20)
 def rasterline(x1 , y1, x2, y2):
     if x1>x2:
         xtemp = x1-x2
@@ -29,20 +29,33 @@ def rasterline(x1 , y1, x2, y2):
     x = x1
     y = y1
     hasGone = False
-    if dirx == "Right" and angle<=45:
+    anglex = 90 - angle
+    anglexTot = 0
+    hasGonex = False
+    if dirx == "Right":
         angle /= 45
+        anglex /= 45
         print("angle: ", angle)
         for i in range(0, lineLength):
             add(x, y)
-            x += 1
-            angleTot    += angle
+            if angle <= 1:
+                x += 1
+            else:
+                anglexTot += anglex
+                if anglexTot > 0.5 and hasGonex == False:
+                    x += 1
+                    hasGonex = True
+                if anglexTot >= 1:
+                    anglexTot -= 1
+                    hasGonex = False
+            angleTot += angle
             if angleTot > 0.5 and hasGone == False:
                 y += 1
                 hasGone = True
             if angleTot >= 1:
                 angleTot -= 1
                 hasGone = False
-            print("AngleTot: ", angleTot, "hasGone: ", hasGone)
+            print("AnglexTot: ", anglexTot, "hasGonex: ", hasGonex)
 
-rasterline(0, 0, 10, 3)
+rasterline(0, 0, 3, 10)
 g.draw()
