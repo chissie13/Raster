@@ -8,16 +8,12 @@ g = Grid(20, 20)                # the grid dimensions (x,y)
 
 def rasterline(x1 , y1, x2, y2):#function to calculate where the points have to go and calls add function accordingly (x1, y1, x2, y2)
     if x1>x2:                   #checks to make sure x1 is on the left side of x2 and changes them if not true
-        temp = x1
-        x1 = x2
-        x2 = temp
-        temp = y1
-        y1 = y2
-        y2 = temp
+        x1, x2, y1, y2 = x2, x1, y2, y1
 
     xtemp = x2 - x1
 
     dir_y = 0
+
     if y1>y2:                   #checks to see if y1 is above or below y2
         ytemp = y1-y2
         dir_y = "Down"
